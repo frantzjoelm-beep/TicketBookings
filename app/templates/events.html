@@ -1,0 +1,30 @@
+<h2>Événements disponibles</h2>
+
+<div class="container">
+  <div class="row">
+
+    {% for event in events %}
+    <div class="col-md-4">
+
+      <div class="card mb-3">
+        <div class="card-body">
+
+          <h5>{{ event.titre }}</h5>
+          <p>{{ event.description }}</p>
+          <p><strong>Date:</strong> {{ event.date }}</p>
+          <p><strong>Catégorie:</strong> {{ event.categorie }}</p>
+          <p>ID: {{ event.id }}</p>
+
+          <a href="{{ url_for('booking.reserver', event_id=event.id) }}"
+             class="btn btn-primary">
+             Réserver
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+</div>

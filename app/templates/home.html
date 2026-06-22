@@ -1,0 +1,30 @@
+<h1>🎫 Ticket Booking</h1>
+
+<a href="/login">Connexion</a>
+<a href="/register">Inscription</a>
+
+<hr>
+
+
+<h1>Événements disponibles</h1>
+
+{% for event in events %}
+
+<div>
+    <h3>{{ event.titre }}</h3>
+
+    <p>{{ event.description }}</p>
+
+    <p>{{ event.date }}</p>
+
+    <p>{{ event.categorie }}</p>
+
+    <a href="{{ url_for('booking.reserver',
+                        event_id=event.id) }}">
+        Réserver
+    </a>
+</div>
+
+<hr>
+
+{% endfor %}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Administration</title>
+</head>
+<body>
+
+<h1>Administration</h1>
+
+<a href="/dashboard">Retour Dashboard</a>
+
+<hr>
+
+<h2>Utilisateurs</h2>
+
+{% for user in users %}
+    <p>
+        {{ user.id }}
+        -
+        {{ user.nom }}
+        -
+        {{ user.email }}
+        -
+        {{ user.role }}
+    </p>
+{% endfor %}
+
+<hr>
+
+<h2>Événements</h2>
+
+{% for event in events %}
+    <p>
+        {{ event.titre }}
+        -
+        {{ event.categorie }}
+        -
+        Créé par utilisateur #{{ event.user_id }}
+    </p>
+{% endfor %}
+
+<hr>
+
+<h2>Réservations</h2>
+
+{% for booking in bookings %}
+
+    <p>
+        <strong>Utilisateur :</strong> {{ booking.user.nom }}
+        <br>
+
+        <strong>Événement :</strong> {{ booking.event.titre }}
+        <br>
+
+        <strong>Statut :</strong> {{ booking.statut }}
+    </p>
+
+    {% if booking.statut == "PENDING" %}
+
+        <a href="{{ url_for('booking.confirmer',
+                             booking_id=booking.id) }}">
+            ✅ Confirmer
+        </a>
+
+        |
+
+        <a href="{{ url_for('booking.refuser',
+                             booking_id=booking.id) }}">
+            ❌ Refuser
+        </a>
+
+    {% elif booking.statut == "CONFIRMED" %}
+
+        <p style="color:green;">
+            Réservation confirmée
+        </p>
+
+    {% elif booking.statut == "CANCELLED" %}
+
+        <p style="color:red;">
+            Réservation annulée
+        </p>
+
+    {% elif booking.statut == "PAID" %}
+
+        <p style="color:blue;">
+            Réservation payée
+        </p>
+
+    {% endif %}
+
+    <hr>
+
+{% endfor %}
+
+</body>
+</html>

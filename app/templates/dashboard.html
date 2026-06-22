@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Utilisateur</title>
+</head>
+<body>
+
+<h1>Bienvenue {{ user.nom }} 👋</h1>
+
+<p>Email : {{ user.email }}</p>
+
+<hr>
+
+<a href="/create-event">Créer un événement</a>
+<a href="/mes-reservations">Mes réservations</a>
+<a href="/logout">Déconnexion</a>
+
+{% if user.role == "admin" %}
+    <a href="/admin">Administration</a>
+{% endif %}
+
+<hr>
+
+<h2>Mes événements</h2>
+
+{% if events %}
+
+    {% for event in events %}
+
+        <div>
+            <h3>{{ event.titre }}</h3>
+
+            <p>{{ event.description }}</p>
+
+            <p>Date : {{ event.date }}</p>
+
+            <p>Catégorie : {{ event.categorie }}</p>
+
+            <p>Capacité : {{ event.capacite }}</p>
+
+            <a href="{{ url_for('booking.reserver',
+                        event_id=event.id) }}">
+                 Réserver
+            </a>
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>Aucun événement créé.</p>
+
+{% endif %}
+
+</body>
+</html>

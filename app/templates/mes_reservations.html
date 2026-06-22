@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mes réservations</title>
+</head>
+<body>
+
+<h1>🎫 Mes réservations</h1>
+
+{% if bookings %}
+
+<table border="1" cellpadding="8">
+
+    <tr>
+        <th>Événement</th>
+        <th>Date réservation</th>
+        <th>Statut</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for booking in bookings %}
+    <tr>
+
+        <td>{{ booking.event.titre }}</td>
+
+        <td>{{ booking.date_reservation }}</td>
+
+        <td>
+            {% if booking.statut == "PENDING" %}
+                🟡 En attente
+
+            {% elif booking.statut == "CONFIRMED" %}
+                🟢 Confirmé
+
+            {% elif booking.statut == "PAID" %}
+                🔵 Payé
+
+            {% elif booking.statut == "CANCELLED" %}
+                🔴 Annulé
+            {% endif %}
+        </td>
+
+        <td>
+
+            {% if booking.statut == "PENDING" %}
+                <a href="{{ url_for('booking.annuler',
+                                    booking_id=booking.id) }}">
+                    ❌ Annuler
+                </a>
+
+            {% elif booking.statut == "CONFIRMED" %}
+                <a href="{{ url_for('booking.payer',
+                                    booking_id=booking.id) }}">
+                    💳 Payer
+                </a>
+
+            {% elif booking.statut == "PAID" %}
+                ✅ Paiement effectué
+
+            {% else %}
+                —
+            {% endif %}
+
+        </td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% else %}
+
+<p>Aucune réservation trouvée.</p>
+
+{% endif %}
+
+</body>
+</html>
