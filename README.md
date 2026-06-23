@@ -8,7 +8,7 @@ Application web de réservation de tickets développée avec Flask.
 ### 1. Cloner le projet
 
 ```bash
-git clone https://github.com/ton-utilisateur/TicketBooking.git
+git clone https://github.com/frantzjoelm-beep/TicketBookings.git
 cd TicketBooking
 ```
 
