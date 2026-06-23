@@ -10,7 +10,6 @@ from flask_talisman import Talisman
 
 
 
-
 login_manager = LoginManager()
 
 def create_app():
